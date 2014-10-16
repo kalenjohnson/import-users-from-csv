@@ -281,30 +281,33 @@ class IS_IU_Import_Users {
 
 				$user = $user_id = false;
 
-				if ( isset( $userdata['ID'] ) )
-					$user = get_user_by( 'ID', $userdata['ID'] );
+				// Going to ignore if there is an ID, we're going to give it an ID
+				// And we're going to use wp_insert_user to force the ID
 
-				if ( ! $user && $users_update ) {
-					if ( isset( $userdata['user_login'] ) )
-						$user = get_user_by( 'login', $userdata['user_login'] );
-
-					if ( ! $user && isset( $userdata['user_email'] ) )
-						$user = get_user_by( 'email', $userdata['user_email'] );
-				}
+//				if ( isset( $userdata['ID'] ) )
+//					$user = get_user_by( 'ID', $userdata['ID'] );
+//
+//				if ( ! $user && $users_update ) {
+//					if ( isset( $userdata['user_login'] ) )
+//						$user = get_user_by( 'login', $userdata['user_login'] );
+//
+//					if ( ! $user && isset( $userdata['user_email'] ) )
+//						$user = get_user_by( 'email', $userdata['user_email'] );
+//				}
 
 				$update = false;
-				if ( $user ) {
-					$userdata['ID'] = $user->ID;
-					$update = true;
-				}
+//				if ( $user ) {
+//					$userdata['ID'] = $user->ID;
+//					$update = true;
+//				}
 
 				// If creating a new user and no password was set, let auto-generate one!
 				if ( ! $update && empty( $userdata['user_pass'] ) )
 					$userdata['user_pass'] = wp_generate_password( 12, false );
 
-				if ( $update )
-					$user_id = wp_update_user( $userdata );
-				else
+//				if ( $update )
+//					$user_id = wp_update_user( $userdata );
+//				else
 					$user_id = wp_insert_user( $userdata );
 
 				// Is there an error o_O?
